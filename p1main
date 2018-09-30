@@ -1,0 +1,56 @@
+/*
+			
+			
+			
+			
+			
+			
+			
+			;msgbox,,, cur(%z%) str(%startcontrol%) a(%a%) c(%c%) e(%e%)
+			m := checkerbox%z%.Moves
+			;msgbox,,,m(%m%)
+			cbd := CheckSurroundingBoxes(m, startcontrol)
+			;msgbox,,,cbd(%cbd%)
+			if(cbd)
+			{
+				
+				break
+			}
+			else
+			{
+				if(cbd == false)
+				{
+					if(checkerbox%e%.Status == "Blank") || (checkerbox%e%.Owner == PlayerNumber)
+					{
+						msgbox, 0x40000, Checker Rules, Jump Move Not Permitted .`nTry Again ., 3
+						showCheckersPlayerTurn()
+						loop 32
+							showCheckersGamePieces(a_index)
+						continue
+					}
+					if(checkerbox%e%.Status == "Active") && (checkerbox%e%.Owner == 2)
+					{
+						
+						asx := CheckNextJump(z)
+						;msgbox,,,asx(%asx%) z(%z%)
+						loop 32
+							showCheckersGamePieces(a_index)
+						if(asx != 0)
+						{
+							if(checkerbox%z%.Kinged == 0)
+							{
+								if(asx < z)
+									break
+							}
+							continue
+						}
+						break
+					}
+				}
+			}
+			showCheckersPlayerTurn()
+			loop 32
+				showCheckersGamePieces(a_index)
+			
+		}
+		*/

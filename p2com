@@ -1,0 +1,142 @@
+/*
+			;msgbox,,,loopcntr(%loopcntr%) ret1(%ret%)
+			er := 0
+			if(loopcntr == 160) || (loopcntr == 300)
+			{	
+				er := 1
+				loop 32
+				{
+					
+					if(checkerbox%er%.Owner == 2)
+					{
+						ret := er
+						
+						msgbox,,, % "box" er " owner(" checkerbox%er%.Owner ") loopcntr(" loopcntr ")" 
+						break
+					}
+					er++
+					
+				}
+				;msgbox,,, ret2(%ret%)
+			}
+			;msgbox,,, ret3(%ret%)
+			if(ret == 0)
+			{
+				ret := SemiRanNumberGen(32)
+			}
+			;msgbox,,, ret4(%ret%)
+			color := "Blue"
+			hidecolor := 1
+			findCheckersRemaining()
+			;showCheckersRemaining()
+			;showCheckersScore()
+			s := checkerbox%ret%.Owner
+			;msgbox,,, s(%s%)
+			if(s == 2)
+			{
+				hideCheckersPlayerTurn()
+				t := findSurroundingBoxes(ret)
+				tg := strlen(t)
+				if(tg == 8)
+					tg := 4
+				else if(tg == 4) || (tg == 2)
+					tg := 2
+					
+				if(tg == 2)
+					u := 1
+				else 
+					u := smallgen(tg)
+				;msgbox,,,u(%u%) tg(%tg%)
+				v := checkformovecomp(t, u)
+				w := checkjumpmovecom(ret, v)
+				if(w == -1)
+					w := 0
+				;msgbox,,,%  "own(" checkerbox%ret%.Owner ") stat(" checkerbox%v%.Status ") ret(" ret ") t(" t ") u(" u ") v(" v ") w(" w ")"	
+				if(checkerbox%ret%.Kinged == 0)
+				{
+					if(ret < v)
+					{
+						;msgbox, 0x40000, Checker Rules, Move Not Permitted . Only A Kinged Piece Can Move Backwards .,3
+						showCheckersPlayerTurn()
+						loop 32
+							showCheckersGamePieces(a_index)
+						continue
+					}
+				}
+				
+				if(checkerbox%v%.Owner == 1)
+				{
+					if(checkerbox%ret%.Kinged == 1)
+					{
+						checkerbox%w%.Kinged := 1
+						checkerbox%ret%.Kinged := 0
+					}
+					if(checkerbox%w%.Owner == 0) && (checkerbox%w%.Status == "Blank")
+					{
+						checkerbox%ret%.Owner := 0
+						checkerbox%ret%.Status := "Blank"
+						checkerbox%w%.ID := checkerbox%ret%.ID
+						checkerbox%ret%.ID := 0
+						checkerbox%w%.Owner := 2
+						checkerbox%w%.Status := "Active"
+						checkerbox%v%.Owner := 0
+						checkerbox%v%.Status := "Blank"
+						if(checkerbox%v%.Kinged == 1)
+							p2scoretotal := p2scoretotal + 5000
+						else
+							p2scoretotal := p2scoretotal + 1000
+						if(checkerbox%v%.ID != 0)
+							checkerbox%v%.ID := 0
+						if(w == 1) || (w == 2) || (w == 3) || (w == 4)
+							checkerbox%w%.Kinged := 1
+						asx := CheckNextJump(w)
+						loop 32
+							showCheckersGamePieces(a_index)
+						if(asx != 0)
+						{
+							if(checkerbox%w%.Kinged == 0)
+							{
+								if(asx < w)
+									break
+							}
+							continue
+						}
+						break
+					}
+				}
+				else
+				{
+					if(checkerbox%v%.Status == "Blank")
+					{
+						if(checkerbox%ret%.Kinged == 1)
+						{
+							checkerbox%v%.Kinged := 1
+							checkerbox%ret%.Kinged := 0
+						}
+						checkerbox%ret%.Owner := 0
+						checkerbox%ret%.Status := "Blank"
+						checkerbox%v%.ID := checkerbox%ret%.ID
+						checkerbox%ret%.ID := 0
+						checkerbox%v%.Owner := 2
+						checkerbox%v%.Status := "Active"
+						if(v == 1) || (v == 2) || (v == 3) || (v == 4)
+								checkerbox%v%.Kinged := 1
+						loop 32
+							showCheckersGamePieces(a_index)
+						break
+					}
+				}
+			}
+			loop 32
+				showCheckersGamePieces(a_index)
+			
+				
+			if(p1remainingleft == 0)
+				WinningPlayer := 2
+			else if(p2remainingleft == 0)
+				WinningPlayer := 1
+			if(WinningPlayer != 0)
+				break
+			loopcntr++
+			ret := 0
+		*/	
